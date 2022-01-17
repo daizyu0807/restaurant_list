@@ -47,12 +47,14 @@ app.get('/search', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
-})
-
 // 查看餐廳
 app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(item => item.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
+  Restaurant.findById(req.params.restaurant_id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant: restaurant }))
+    .catch(err => console.log(err))
+})
+
+app.listen(port, () => {
+  console.log(`Express is listening on localhost:${port}`)
 })
