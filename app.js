@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
 const Restaurant = require('./models/Restaurant')
+const bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost/restaurant_list')
 
@@ -11,6 +12,7 @@ app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 // app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const db = mongoose.connection
 db.on('error', () => {
@@ -52,6 +54,18 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
   Restaurant.findById(req.params.restaurant_id)
     .lean()
     .then(restaurant => res.render('show', { restaurant: restaurant }))
+    .catch(err => console.log(err))
+})
+
+// 新增餐廳頁面
+app.get('/new', (req, res) => {
+  res.render('new')
+})
+
+// 新增餐廳
+app.post('/restaurants', (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
