@@ -1,6 +1,6 @@
 # Restaurant List
 
-![Index page about Restaurant List]()
+![Index page about Restaurant List](https://github.com/daizyu0807/restaurant_list/blob/61aa2cc77756869c1a3a5d252b1747a41aa322ea/restaurantList.jpg)
 Introduce the website of the restaurant, provide query, add, edit, delete the specified restaurant.
 
 ### Function
