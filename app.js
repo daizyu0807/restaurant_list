@@ -69,6 +69,13 @@ app.post('/restaurants', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// 刪除餐廳
+app.post("/restaurants/:restaurant_id/delete", (req, res) => {
+  Restaurant.findByIdAndDelete(req.params.restaurant_id)
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
