@@ -9,8 +9,8 @@
         id="name"
         placeholder="梅子鰻蒲燒專賣店"
         name="name"
-        value="{{restaurant.name}}"
-        required
+        value="{{restaurant.name}}" {{!-- 帶入原先資料 --}}
+        required {{!-- 必填 --}}
       />
     </div>
     <div class="mb-3 row">
@@ -130,8 +130,6 @@
           返回首頁
         </button>
       </a>
-      {{! 使用type="reset" 可以清除/還原輸入 }}
-      <button type="reset" class="btn btn-outline-danger">重新輸入</button>
     </div>
   </form>
 </div>
