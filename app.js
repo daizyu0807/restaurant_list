@@ -69,8 +69,24 @@ app.post('/restaurants', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// 編輯餐廳頁面
+app.get('/restaurants/:restaurant_id/edit', (req, res) => {
+  Restaurant.findById(req.params.restaurant_id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant: restaurant }))
+    .catch(err => console.log(err))
+})
+
+// 編輯餐廳
+app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+  Restaurant.findByIdAndUpdate(req.params.restaurant_id, req.body)
+    .lean()
+    .then(() => res.redirect(`/restaurants/${req.params.restaurant_id}`))
+    .catch(err => console.log(err))
+})
+
 // 刪除餐廳
-app.post("/restaurants/:restaurant_id/delete", (req, res) => {
+app.post('/restaurants/:restaurant_id/delete', (req, res) => {
   Restaurant.findByIdAndDelete(req.params.restaurant_id)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
