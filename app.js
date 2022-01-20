@@ -59,7 +59,7 @@ app.get('/search', (req, res) => {
 app.get('/restaurants/:restaurant_id', (req, res) => {
   Restaurant.findById(req.params.restaurant_id)
     .lean()
-    .then(restaurant => res.render('show', { restaurant: restaurant }))
+    .then(restaurant => res.render('show', { restaurant }))
     .catch(err => console.log(err))
 })
 
@@ -79,7 +79,7 @@ app.post('/restaurants', (req, res) => {
 app.get('/restaurants/:restaurant_id/edit', (req, res) => {
   Restaurant.findById(req.params.restaurant_id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant: restaurant }))
+    .then(restaurant => res.render('edit', { restaurant }))
     .catch(err => console.log(err))
 })
 
