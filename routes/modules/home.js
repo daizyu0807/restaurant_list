@@ -10,11 +10,48 @@ router.get('/', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// 排序餐廳
+router.get('/sorting', (req, res) => {
+  const sort = req.query.sort
+  let sortValue = {}
+  switch (sort) {
+    case 'nameAsc': {
+      sortValue = { name: 'asc' }
+      break
+    }
+    case 'nameDesc': {
+      sortValue = { name: 'desc' }
+      break
+    }
+    case 'CategoryAsc': {
+      sortValue = { category: 'asc' }
+      break
+    }
+    case 'locationAsc': {
+      sortValue = { location: 'asc' }
+      break
+    }
+    default : {
+      sortValue = { name: 'asc' }
+      break
+    }
+  }
+
+  console.log('keyword: ', req.query.keyword)
+  Restaurant.find()
+    .lean()
+    .sort(sortValue)
+    .then(restaurantList => {
+      res.render('index', { restaurants: restaurantList, sort: sort })
+    })
+    .catch(err => console.log(err))
+})
+
 // 搜尋餐廳
 router.get('/search', (req, res) => {
   // 搜尋欄位空值
   if (!req.query.keyword) {
-    res.redirect('/')
+    return res.redirect('/')
   }
 
   const keyword = req.query.keyword

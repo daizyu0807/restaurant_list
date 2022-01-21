@@ -9,7 +9,20 @@ const routes = require('./routes')
 require('./config/mongoose')
 
 // 設定 handlebars engine
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
+app.engine(
+  'handlebars',
+  exphbs.engine({
+    defaultLayout: 'main',
+    helpers: ({
+      selected: function (option, value) {
+        if (option === value) {
+          return 'selected'
+        } else {
+          return ''
+        }
+      }
+    })
+  }))
 app.set('view engine', 'handlebars')
 
 // 調用靜態檔案位置
