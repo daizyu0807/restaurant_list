@@ -9,6 +9,7 @@ Introduce the website of the restaurant, provide query, add, edit, delete the sp
 - Browse restaurant details
 - Link restaurant's address to Google Maps
 - Search for a specific restaurant
+- Sort restaurants
 - Added restaurant
 - Edit restaurant
 - Delete restaurant
