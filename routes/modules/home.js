@@ -13,34 +13,11 @@ router.get('/', (req, res) => {
 // 排序餐廳
 router.get('/sorting', (req, res) => {
   const sort = req.query.sort
-  let sortValue = {}
-  switch (sort) {
-    case 'nameAsc': {
-      sortValue = { name: 'asc' }
-      break
-    }
-    case 'nameDesc': {
-      sortValue = { name: 'desc' }
-      break
-    }
-    case 'CategoryAsc': {
-      sortValue = { category: 'asc' }
-      break
-    }
-    case 'locationAsc': {
-      sortValue = { location: 'asc' }
-      break
-    }
-    default : {
-      sortValue = { name: 'asc' }
-      break
-    }
-  }
+  const [property, sortBy] = req.query.sort.split('_')
 
-  console.log('keyword: ', req.query.keyword)
   Restaurant.find()
     .lean()
-    .sort(sortValue)
+    .sort({ [property]: sortBy })
     .then(restaurantList => {
       res.render('index', { restaurants: restaurantList, sort: sort })
     })
