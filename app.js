@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require('express-session')
+const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
 const port = 3000
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
@@ -37,6 +38,8 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 // 調用 methodOverride 設定路由
 app.use(methodOverride('_method'))
+// 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
+usePassport(app)
 // 調用 routes
 app.use(routes)
 
