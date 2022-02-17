@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const session = require('express-session')
 const port = 3000
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
@@ -7,6 +8,11 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 
 require('./config/mongoose')
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // 設定 handlebars engine
 app.engine(
