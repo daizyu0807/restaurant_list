@@ -4,7 +4,8 @@ const Restaurant = require('../../models/Restaurant')
 
 // 餐廳首頁
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .then(restaurantList => res.render('index', { restaurants: restaurantList }))
     .catch(err => console.log(err))
@@ -14,8 +15,9 @@ router.get('/', (req, res) => {
 router.get('/sorting', (req, res) => {
   const sort = req.query.sort
   const [property, sortBy] = req.query.sort.split('_')
+  const userId = req.user._id
 
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .sort({ [property]: sortBy })
     .then(restaurantList => {
@@ -30,9 +32,9 @@ router.get('/search', (req, res) => {
   if (!req.query.keyword) {
     return res.redirect('/')
   }
-
+  const userId = req.user._id
   const keyword = req.query.keyword
-  Restaurant.find()
+  Restaurant.find({ userId })
     .lean()
     .then(restaurantList => {
       const restaurantFilter = restaurantList.filter(

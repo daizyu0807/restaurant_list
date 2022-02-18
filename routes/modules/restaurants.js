@@ -4,7 +4,9 @@ const Restaurant = require('../../models/Restaurant')
 
 // 查看指定餐廳
 router.get('/:restaurant_id', (req, res) => {
-  Restaurant.findById(req.params.restaurant_id)
+  const userId = req.user._id
+  const restaurantId = req.params.restaurant_id
+  Restaurant.findOne({ userId, restaurantId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(err => console.log(err))
@@ -12,6 +14,7 @@ router.get('/:restaurant_id', (req, res) => {
 
 // 新增餐廳
 router.post('/', (req, res) => {
+  req.body.userId = req.user._id
   Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
