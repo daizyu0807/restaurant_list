@@ -4,9 +4,8 @@ const Restaurant = require('../../models/Restaurant')
 
 // 查看指定餐廳
 router.get('/:restaurant_id', (req, res) => {
-  const userId = req.user._id
-  const restaurantId = req.params.restaurant_id
-  Restaurant.findOne({ userId, restaurantId })
+  const _id = req.params.restaurant_id
+  Restaurant.findOne({ _id })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(err => console.log(err))
